@@ -8,6 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 </head>
 
 <body>
@@ -19,7 +22,7 @@
                 <h1 class="text-3xl font-semibold ">Filemoon</h1>
             </div>
 
-            <form action="" class="w-full space-y-6 ">
+            <form action="" class="w-full space-y-6 " onsubmit="login(event)">
 
                 <div class="space-y-1 ">
                     <label class="text-gray-500 text-[17px]block">Email</label>
@@ -42,10 +45,11 @@
 
             <div class="flex items-center gap-2">
                 <p class="text-gray-500">Don`t have an account ?</p>
-                <a href="#" class="text-green-500 font-medium">Signup</a>
+                <a href="./signup.html" class="text-green-500 font-medium">Signup</a>
             </div>
         </div>
     </div>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

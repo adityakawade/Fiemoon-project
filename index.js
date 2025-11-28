@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.DB);
 
 const express = require('express');
-const { v4: uniqueId } = require('uuid')
+const { v4: uniqueId } = require('uuid');
+const cors = require("cors");
 
 const multer = require("multer");
 
@@ -35,6 +36,7 @@ app.listen(process.env.PORT || 8080);
 app.use(express.static("view"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 
 

@@ -28,6 +28,7 @@ const upload = multer({ storage: storage });
 const { signup, login } = require('./controller/user.controller');
 const { createFile, fetchFile, deleteFile, downloadFile } = require('./controller/file.controller');
 const { fetchDashboard } = require('./controller/dashboard.controller');
+const { verifyToken } = require('./controller/token.controller');
 const app = express();
 app.listen(process.env.PORT || 8080);
 
@@ -47,3 +48,4 @@ app.get('/file', fetchFile);
 app.delete('/file/:id', deleteFile);
 app.get('/file/download/:id', downloadFile);
 app.get('/dashboard', fetchDashboard); 
+app.post("/token/verify",verifyToken);

@@ -1,0 +1,21 @@
+const getsession = async () => {
+    try {
+        const session = localStorage.getItem("authtoken");
+
+        if (!session) {
+            return null;
+        }
+
+        const payload = {
+            token: session
+        }
+
+        const response = await axios.post("http://localhost:8080/token/verify", payload);
+        return response.data;
+
+    } catch (error) {
+        return null
+    }
+
+}
+getsession();

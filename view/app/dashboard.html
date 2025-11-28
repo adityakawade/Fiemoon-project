@@ -8,6 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="../js/session.js"></script>
+
 </head>
 
 <body>
@@ -15,7 +18,8 @@
 
     <div class="bg-gray-100 h-screen">
 
-        <aside class=" py-6 h-14 bg-linear-to-r from-cyan-500 to-blue-500 fixed top-0 left-0  h-full  space-y-6 overflow-hidden"
+        <aside
+            class=" py-6 h-14 bg-linear-to-r from-cyan-500 to-blue-500 fixed top-0 left-0  h-full  space-y-6 overflow-hidden"
             id="sidebar" style="width: 250px;transition: 0.3s;">
 
             <div class="flex flex-col items-center">
@@ -131,18 +135,16 @@
 
 
 
-                    <div
-                        class="bg-white rounded-lg shadow hover:shadow-lg  p-6 relative overflow-hidden col-span-2">
+                    <div class="bg-white rounded-lg shadow hover:shadow-lg  p-6 relative overflow-hidden col-span-2">
                         <h1 class="text-xl font-semibold text-gray-600">Recent files</h1>
-                        
+
                     </div>
 
 
 
-                     <div
-                        class="bg-white rounded-lg shadow hover:shadow-lg  p-6 relative overflow-hidden col-span-2">
+                    <div class="bg-white rounded-lg shadow hover:shadow-lg  p-6 relative overflow-hidden col-span-2">
                         <h1 class="text-xl font-semibold text-gray-600">Recent shared</h1>
-                        
+
                     </div>
 
 

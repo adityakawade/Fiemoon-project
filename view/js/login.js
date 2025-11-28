@@ -1,4 +1,3 @@
-
 const toast = new Notyf({
     position: { x: 'center', y: 'top' }
 });
@@ -13,10 +12,8 @@ const login = async (e) => {
             password: element.password.value,
         }
         const response = await axios.post("http://localhost:8080/login", payload);
-        console.log(response);
-
-        form.reset();
         toast.success(response.data.message);
+        localStorage.setItem("authtoken", response.data.token)
         setTimeout(() => {
             location.href = "app/dashboard.html"
         }, 2000)

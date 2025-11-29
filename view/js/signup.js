@@ -2,6 +2,16 @@ const toast = new Notyf({
     position: { x: 'center', y: 'top' }
 });
 
+const checksession = async () => {
+    const session = await getsession();
+    console.log(session);
+    if (session) {
+        location.href = "app/dashboard.html";
+    }
+
+}
+
+checksession();
 
 const signup = async (e) => {
     try {
@@ -19,7 +29,7 @@ const signup = async (e) => {
 
         const response = await axios.post("http://localhost:8080/signup", payload);
         console.log(response);
-        
+
         form.reset();
         toast.success(response.data.message);
         setTimeout(() => {

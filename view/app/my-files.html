@@ -8,6 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="../js/session.js"></script>
 </head>
 
 <body>
@@ -47,7 +49,7 @@
                 </a>
 
 
-                <button class="w-full bg-rose-400 py-2.5 text-white rounded hover:bg-rose-600">
+                <button class="w-full bg-rose-400 py-2.5 text-white rounded hover:bg-rose-600" onclick="logout()">
                     <i class="ri-logout-circle-r-line"></i>
                     <label for="">Logout</label>
                 </button>
@@ -72,7 +74,7 @@
 
                 <div class="space-x-2">
 
-                    <button class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"><i
+                    <button class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200" onclick="logout()"><i
                             class="ri-logout-circle-r-line"></i></button>
 
                     <button onclick="toggleSidebar()" class="bg-gray-100 px-3 py-2 rounded hover:bg-gray-200"> <i
@@ -187,21 +189,21 @@
             </div>
 
             <div class="h-px bg-gray-100 -mx-6"></div>
-            <form class="space-y-6">
+            <form class="space-y-6" onsubmit="uploadfiles(event)"">
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-gray-600 font-medium ">Filename</label>
-                    <input type="text" class="py-2 px-3 rounded border border-gray-300 " placeholder="Enter file name"
+                    <input name="filename" type="text" class="py-2 px-3 rounded border border-gray-300 " placeholder="Enter file name"
                         required>
                 </div>
 
 
                 <div class="flex flex-col gap-2">
                     <label for="" class="text-gray-600 font-medium ">Choose a file</label>
-                    <input type="file" class="py-2 px-3 rounded border border-gray-300 " placeholder="Enter file name"
+                    <input name="file" type="file" class="py-2 px-3 rounded border border-gray-300 " placeholder="Enter file name"
                         required>
                 </div>
 
-                <button class="py-2 px-6 bg-rose-400 hover:bg-rose-500 font-medium text-white rounded">Upload
+                <button  class="py-2 px-6 bg-rose-400 hover:bg-rose-500 font-medium text-white rounded" ">Upload
                     Now</button>
             </form>
 

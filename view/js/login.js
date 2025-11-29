@@ -2,6 +2,17 @@ const toast = new Notyf({
     position: { x: 'center', y: 'top' }
 });
 
+const checksession = async () => {
+    const session = await getsession();
+    console.log(session);
+    if (session) {
+        location.href = "app/dashboard.html";
+    }
+
+}
+
+checksession()
+
 const login = async (e) => {
     try {
         e.preventDefault();

@@ -18,4 +18,9 @@ const getsession = async () => {
     }
 
 }
-getsession();
+
+
+const logout = () => {
+    localStorage.clear();
+    location.href = "../index.html";
+}

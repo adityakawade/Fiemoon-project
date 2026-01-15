@@ -23,7 +23,7 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User does not exist" })
         }
-        const isLogin = await bcrypt.compareSync(password, user.password);
+        const isLogin =   bcrypt.compareSync(password, user.password);
         if (!isLogin) {
             return res.status(401).json({ message: "Incorrect password" })
         }

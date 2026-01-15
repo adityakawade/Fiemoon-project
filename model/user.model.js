@@ -65,7 +65,7 @@ userSchema.pre('save', async function (next) {
     // password encrypt before store
     const encyptedPssword = await bcrypt.hash(this.password.toString(), 12);
     this.password = encyptedPssword;
-    console.log(encyptedPssword);
+    // console.log(encyptedPssword);
     
 
     next();

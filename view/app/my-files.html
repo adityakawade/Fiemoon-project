@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="../js/env.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -17,7 +18,8 @@
 
     <div class="bg-gray-100 h-screen">
 
-        <aside class=" py-6 h-14 bg-linear-to-r from-cyan-500 to-blue-500 fixed top-0 left-0  h-full  space-y-6 overflow-hidden"
+        <aside
+            class=" py-6 h-14 bg-linear-to-r from-cyan-500 to-blue-500 fixed top-0 left-0  h-full  space-y-6 overflow-hidden"
             id="sidebar" style="width: 250px;transition: 0.3s;">
 
             <div class="flex flex-col items-center">
@@ -27,21 +29,21 @@
             </div>
 
             <div class="px-6 flex flex-col gap-4">
-                <a href="./dashboard.html">
+                <a href="/dashboard">
                     <button class="w-full bg-rose-400 py-2.5 text-white rounded hover:bg-rose-600">
                         <i class="ri-apps-line"></i>
                         <label for="">Dashboard</label>
                     </button>
                 </a>
 
-                <a href="./my-files.html">
+                <a href="/files">
                     <button class="w-full bg-rose-400 py-2.5 text-white rounded hover:bg-rose-600">
                         <i class="ri-file-fill"></i>
                         <label for=""> My Files</label>
                     </button>
                 </a>
 
-                <a href="./history.html">
+                <a href="/history">
                     <button class="w-full bg-rose-400 py-2.5 text-white rounded hover:bg-rose-600">
                         <i class="ri-history-line"></i>
                         <label for="">History</label>
@@ -180,7 +182,8 @@
 
         </section>
 
-        <div class="fixed w-4/12 bg-white shadow-lg top-0   h-full p-6 space-y-6" style="right: -33.33%; transition: 0.2s;" id="drawer">
+        <div class="fixed w-4/12 bg-white shadow-lg top-0   h-full p-6 space-y-6"
+            style="right: -33.33%; transition: 0.2s;" id="drawer">
             <div class="flex justify-between items-center ">
                 <h1 class="text-lg font-medium text-gray-600 ">Adding a new file</h1>
                 <button onclick="toggleDrawer()">
@@ -190,29 +193,29 @@
 
             <div class="h-px bg-gray-100 -mx-6"></div>
             <form class="space-y-6" onsubmit="uploadfiles(event)"">
-                <div class="flex flex-col gap-2">
-                    <label for="" class="text-gray-600 font-medium ">Filename</label>
-                    <input name="filename" type="text" class="py-2 px-3 rounded border border-gray-300 " placeholder="Enter file name"
-                        required>
-                </div>
+                <div class=" flex flex-col gap-2">
+                <label for="" class="text-gray-600 font-medium ">Filename</label>
+                <input name="filename" type="text" class="py-2 px-3 rounded border border-gray-300 "
+                    placeholder="Enter file name" required>
+        </div>
 
 
-                <div class="flex flex-col gap-2">
-                    <label for="" class="text-gray-600 font-medium ">Choose a file</label>
-                    <input name="file" type="file" class="py-2 px-3 rounded border border-gray-300 " placeholder="Enter file name"
-                        required>
-                </div>
+        <div class="flex flex-col gap-2">
+            <label for="" class="text-gray-600 font-medium ">Choose a file</label>
+            <input name="file" type="file" class="py-2 px-3 rounded border border-gray-300 "
+                placeholder="Enter file name" required>
+        </div>
 
-                <button  class="py-2 px-6 bg-rose-400 hover:bg-rose-500 font-medium text-white rounded" ">Upload
+        <bu class="py-2 px-6 bg-rose-400 hover:bg-rose-500 font-medium text-white rounded" ">Upload
                     Now</button>
             </form>
 
-            <div class="bg-gray-200 h-4">
-                <div class="h-full bg-green-500 w-6/12 text-xs text-gray-500 text-center">
-                    50%
-                </div>
+            <div class=" bg-gray-200 h-4">
+            <div class="h-full bg-green-500 w-6/12 text-xs text-gray-500 text-center">
+                50%
             </div>
-        </div>
+    </div>
+    </div>
     </div>
     <script src="../js/layout.js"></script>
     <script src="../js/my-files.js"></script>

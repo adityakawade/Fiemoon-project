@@ -1,6 +1,5 @@
 axios.defaults.baseURL = SERVER
 
-
 const toast = new Notyf({
     position: { x: 'center', y: 'top' }
 });

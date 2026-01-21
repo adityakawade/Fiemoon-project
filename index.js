@@ -82,5 +82,5 @@ app.get("/history", (req, res) => {
 })
 
 app.get("/files", (req, res) => {
-    res.sendFile(getPath("app/my-files.html"));
+    res.sendFile(getPath("app/files.html"));
 })

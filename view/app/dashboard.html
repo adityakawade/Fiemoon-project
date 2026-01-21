@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <script src="../js/env.js"></script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-    <script src="../js/session.js"></script>
+    
 
 </head>
 
@@ -25,8 +25,8 @@
 
             <div class="flex flex-col items-center">
                 <img src="../images/avt.png" alt="" srcset="" width="80">
-                <h1 class="text-lg font-medium">Er Aditya</h1>
-                <p class="text-sm text-gray-100">aditya@gmail.com</p>
+                <h1 class="text-lg font-medium capitalize" id="fullname"></h1>
+                <p class="text-sm text-gray-100" id="email"></p>
             </div>
 
             <div class="px-6 flex flex-col gap-4">
@@ -158,6 +158,8 @@
 
         </section>
     </div>
+    <script src="../js/env.js"></script>
+    <script src="../js/session.js"></script>
     <script src="../js/layout.js"></script>
     <script src="../js/dashboard.js"></script>
 </body>

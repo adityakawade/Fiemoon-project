@@ -6,11 +6,11 @@ const { error } = require("console");
 const createFile = async (req, res) => {
     try {
         const file = req.file;
-        // console.log(file);
+        const { filename } = req.body;
 
         const payload = {
             path: `${file.destination}${file.filename}`,
-            filename: file.filename,
+            filename: filename,
             type: file.mimetype.split("/")[0],
             size: file.size
         }

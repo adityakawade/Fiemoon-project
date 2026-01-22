@@ -9,7 +9,7 @@ window.onload = () => {
 
 const showUserDeatails = async () => {
     const session = await getsession();
-    console.log(session);
+    
 
     const fullname = document.getElementById("fullname");
     const email = document.getElementById("email");

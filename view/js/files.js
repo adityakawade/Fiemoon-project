@@ -1,6 +1,7 @@
 axios.defaults.baseURL = SERVER
 
 window.onload = () => {
+    showUserDeatails();
     fetchFile();
 }
 
@@ -29,6 +30,16 @@ const toggleDrawer = () => {
 
 }
 
+const showUserDeatails = async () => {
+    const session = await getsession();
+
+
+    const fullname = document.getElementById("fullname");
+    const email = document.getElementById("email");
+    fullname.innerHTML = session.fullname;
+    email.innerHTML = session.email;
+}
+
 
 const uploadFile = async (e) => {
     try {
@@ -37,6 +48,15 @@ const uploadFile = async (e) => {
         const uploadButton = document.getElementById("upload-btn");
         const form = e.target;
         const formdata = new FormData(form);
+
+        // valodating file size
+        const file = formdata.get('file');
+        const size = getSize(file.size);
+        if (size > 200) {
+            return toast.error("file size too large only max size 200Mb is allowed");
+        }
+
+
         const options = {
             onUploadProgress
                 : (e) => {
@@ -52,7 +72,6 @@ const uploadFile = async (e) => {
         uploadButton.disabled = true;
         const { data } = await axios.post('/api/file', formdata, options);
         toast.success(`${data.filename} has been uploaded !`);
-        uploadButton.disabled = false;
         progress.style.width = 0;
         progress.innerHTML = '';
         fetchFile();
@@ -63,7 +82,13 @@ const uploadFile = async (e) => {
         toast.error(error.response ? error.response.data.message : error.message);
     }
 
+    finally {
+        uploadButton.disabled = false;
+    }
+
 }
+
+
 
 const getSize = (size) => {
     const mb = (size / 1000) / 1000;
@@ -87,11 +112,11 @@ const fetchFile = async () => {
                         <td> ${moment(file.createdAt).format('DD-MMM-YYYY,   hh:mm A')}</td>
                         <td>
                             <div class="space-x-3" >
-                                <button class=" px-2 py-1  text-white bg-rose-400  hover:bg-rose-600 rounded " onclick="deleteFile('${file._id}')">
+                                <button class=" px-2 py-1  text-white bg-rose-400  hover:bg-rose-600 rounded " onclick="deleteFile('${file._id}',this)">
                                     <i class="ri-delete-bin-3-line"></i>
                                 </button>
 
-                                <button class=" px-2 py-1  text-white bg-green-400  hover:bg-green-600 rounded " onclick="downloadFile('${file._id}','${file.filename}')">
+                                <button class=" px-2 py-1  text-white bg-green-400  hover:bg-green-600 rounded " onclick="downloadFile('${file._id}','${file.filename}',this)">
                                     <i class="ri-download-line"></i>
                                 </button>
 
@@ -111,18 +136,27 @@ const fetchFile = async () => {
 
 }
 
-const deleteFile = async (id) => {
+const deleteFile = async (id, button) => {
     try {
+        button.innerHTML = ' <i class="fa fa-spinner fa-spin "></i>';
+        button.disabled = true;
         await axios.delete(`/api/file/${id}`);
         toast.success("File deleted !")
         fetchFile();
     } catch (error) {
         toast.error(error.response ? error.response.data.message : error.message);
     }
+    finally {
+        button.innerHTML = ' <i class="ri-delete-bin-3-line"></i>';
+        button.disabled = false;
+    }
 }
 
-const downloadFile = async (id,filename) => {
+const downloadFile = async (id, filename, button) => {
     try {
+        button.innerHTML = ' <i class="fa fa-spinner fa-spin "></i>';
+        button.disabled = true;
+
         const options = {
             responseType: 'blob'
         };
@@ -136,6 +170,16 @@ const downloadFile = async (id,filename) => {
         a.remove();
         toast.success("File downloaded successfully !")
     } catch (error) {
-        toast.error(error.response ? error.response.data.message : error.message);
+        if (!error.response) {
+            return toast.error(error.message);
+        }
+
+        const err = await (error.response.data).text();
+        const { message } = JSON.parse(err);
+        toast.error(message)
+    }
+    finally {
+        button.innerHTML = '<i class="ri-download-line"></i>';
+        button.disabled = false;
     }
 }

@@ -1,0 +1,7 @@
+node_modules/
+.env
+view/js/env.js
+files/
+*.mp4
+*.exe
+

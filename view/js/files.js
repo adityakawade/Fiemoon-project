@@ -10,7 +10,14 @@ const toast = new Notyf({
 });
 
 
-
+const getAuthToken = () => {
+    const option = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("authtoken")}`
+        }
+    }
+    return option
+}
 
 const logout = () => {
     localStorage.clear();
@@ -67,7 +74,9 @@ const uploadFile = async (e) => {
                     console.log(percantageValue);
                     progress.style.width = percantageValue + '%';
                     progress.innerHTML = percantageValue + '%';
-                }
+                },
+
+            ...getAuthToken()
         }
 
         uploadButton.disabled = true;
@@ -101,7 +110,8 @@ const getSize = (size) => {
 
 const fetchFile = async () => {
     try {
-        const { data } = await axios.get("/api/file");
+
+        const { data } = await axios.get("/api/file", getAuthToken());
         const tables = document.getElementById("files-table");
         tables.innerHTML = "";
         for (const file of data) {
@@ -141,7 +151,7 @@ const deleteFile = async (id, button) => {
     try {
         button.innerHTML = ' <i class="fa fa-spinner fa-spin "></i>';
         button.disabled = true;
-        await axios.delete(`/api/file/${id}`);
+        await axios.delete(`/api/file/${id}`, getAuthToken());
         toast.success("File deleted !")
         fetchFile();
     } catch (error) {
@@ -159,7 +169,8 @@ const downloadFile = async (id, filename, button) => {
         button.disabled = true;
 
         const options = {
-            responseType: 'blob'
+            responseType: 'blob',
+            ...getAuthToken()
         };
         const { data } = await axios.get(`api/file/download/${id}`, options);
         const ext = data.type.split("/").pop();
@@ -222,7 +233,7 @@ const shareFile = async (e, id) => {
             email: email,
             fileId: id
         }
-        await axios.post("/api/share", payload);
+        await axios.post("/api/share", payload, getAuthToken());
         toast.success(`File Send Successfully !`)
 
 

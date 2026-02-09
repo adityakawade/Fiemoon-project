@@ -8,7 +8,7 @@ const root = process.cwd();
 const express = require('express');
 const path = require("path");
 const { v4: uniqueId } = require('uuid');
-const cors = require("cors");
+// const cors = require("cors");
 
 const multer = require("multer");
 
@@ -36,7 +36,7 @@ const { signup, login } = require('./controller/user.controller');
 const { createFile, fetchFile, deleteFile, downloadFile } = require('./controller/file.controller');
 const { fetchDashboard } = require('./controller/dashboard.controller');
 const { verifyToken } = require('./controller/token.controller');
-const { shareFile } = require('./controller/share.controller');
+const { shareFile, fetchedSharedHistory } = require('./controller/share.controller');
 const AuthMiddleware = require('./middleware/auth.middleware');
 const app = express();
 app.listen(process.env.PORT || 8080);
@@ -46,7 +46,7 @@ app.listen(process.env.PORT || 8080);
 app.use(express.static("view"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 
 
@@ -90,13 +90,14 @@ app.get("/files", (req, res) => {
 // Api endpoint
 app.post('/api/signup', signup);
 app.post('/api/login', login);
-app.post('/api/file', upload.single('file'), createFile);
+app.post('/api/file', AuthMiddleware, upload.single('file'), createFile);
 app.get('/api/file', AuthMiddleware, fetchFile);
 app.delete('/api/file/:id', AuthMiddleware, deleteFile);
 app.get('/api/file/download/:id', downloadFile);
 app.get('/api/dashboard', AuthMiddleware, fetchDashboard);
 app.post("/api/token/verify", verifyToken);
-app.post("/api/share", AuthMiddleware, shareFile)
+app.post("/api/share", AuthMiddleware, shareFile);
+app.get("/api/share", AuthMiddleware, fetchedSharedHistory)
 
 
 

@@ -4,13 +4,13 @@ const AuthMiddleware = async (req, res, next) => {
                 const { authorization } = req.headers;
                 // check authorixation key exist or not
                 if (!authorization) {
-                        return res.status(401).json({ message: "Invalid request" });
+                        return res.status(401).json({ message: "Unauthorized User" });
                 }
 
                 const [type, token] = authorization.split(" ");
                 // check token type bearer  or not
                 if (type !== "Bearer") {
-                        return res.status(401).json({ message: "Invalid request" });
+                        return res.status(401).json({ message: "Unauthorized User" });
                 }
 
                 // verifying token with secret and injecting user payload to request object
@@ -21,7 +21,7 @@ const AuthMiddleware = async (req, res, next) => {
                 next();
 
         } catch (error) {
-                return res.status(401).json({ message: "Invalid request" });
+                return res.status(401).json({ message: "Unauthorized User" });
         }
 
 

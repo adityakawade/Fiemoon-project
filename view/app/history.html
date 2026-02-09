@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -10,7 +10,13 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+
+
+
+
 </head>
 
 <body>
@@ -92,66 +98,15 @@
 
                 </div>
                 <table class="w-full bg-white ">
-                    <tr class="bg-slate-900 text-white text-left">
-                        <th class=" font-medium py-4 pl-6">Filename</th>
-                        <th class=" font-medium">Email</th>
-                        <th class=" font-medium">Datetime</th>
-
-                        <th class=" font-medium">Action</th>
-                    </tr>
-
-
-                    <tr class="text-gray-500 border-b border-gray-100">
-                        <td class="py-4 pl-6">Introduction to html</td>
-                        <td>aditya@gmail.com</td>
-                        <td> 24 june 2025</td>
-                        <td>
-                            <div class="space-x-3">
-                                <button class=" px-2 py-1  text-white bg-rose-400  hover:bg-rose-600 rounded ">
-                                    <i class="ri-delete-bin-3-line"></i>
-                                </button>
-
-
-                            </div>
-                        </td>
-                    </tr>
-
-
-                    <tr class="text-gray-500 border-b border-gray-100">
-                        <td class="py-4 pl-6">Introduction to html</td>
-                        <td>aditya@gmail.com</td>
-                        <td> 24 june 2025</td>
-                        <td>
-                            <div class="space-x-3">
-                                <button class=" px-2 py-1  text-white bg-rose-400  hover:bg-rose-600 rounded ">
-                                    <i class="ri-delete-bin-3-line"></i>
-                                </button>
-
-
-                            </div>
-                        </td>
-                    </tr>
-
-
-                    <tr class="text-gray-500 border-b border-gray-100">
-                        <td class="py-4 pl-6">Introduction to html</td>
-                        <td>aditya@gmail.com</td>
-                        <td> 24 june 2025</td>
-                        <td>
-                            <div class="space-x-3">
-                                <button class=" px-2 py-1  text-white bg-rose-400  hover:bg-rose-600 rounded ">
-                                    <i class="ri-delete-bin-3-line"></i>
-                                </button>
-
-
-                            </div>
-                        </td>
-                    </tr>
-
-
-
-
-
+                    <thead>
+                        <tr class="bg-slate-900 text-white text-left">
+                            <th class=" font-medium py-4 pl-6">Filename</th>
+                            <th class=" font-medium">Email</th>
+                            <th class=" font-medium">Datetime</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tables">
+                    </tbody>
                 </table>
 
 
@@ -199,7 +154,7 @@
     <script src="../js/session.js"></script>
     <script src="../js/history.js"></script>
     <script src="../js/layout.js"></script>
-    
+
 </body>
 
 </html>

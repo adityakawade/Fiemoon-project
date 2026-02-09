@@ -17,12 +17,12 @@ const createFile = async (req, res) => {
     try {
         const file = req.file;
         const { filename } = req.body;
-
         const payload = {
             path: `${file.destination}${file.filename}`,
             filename: filename,
             type: getType(file.mimetype),
-            size: file.size
+            size: file.size,
+            user: req.user._id
         }
         const newFile = await FileModel.create(payload);
         res.status(200).json(newFile)
@@ -36,7 +36,9 @@ const createFile = async (req, res) => {
 
 const fetchFile = async (req, res) => {
     try {
-        const files = await FileModel.find();
+        const { _id } = req.user;
+        const files =  await FileModel.find({ user: _id }).sort({ createdAt: -1 })
+
         res.status(200).json(files);
 
 

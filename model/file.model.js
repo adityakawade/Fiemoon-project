@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, mongoose } = require("mongoose");
 
 const fileSchema = new Schema({
     filename: {
@@ -28,6 +28,12 @@ const fileSchema = new Schema({
         type: Number,
         required: true
 
+    },
+
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+        required: true
     }
 
 

@@ -2,6 +2,7 @@
 const UserModel = require("../model/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const path = require("path")
 
 
 const signup = async (req, res) => {
@@ -23,7 +24,7 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User does not exist" })
         }
-        const isLogin =   bcrypt.compareSync(password, user.password);
+        const isLogin = bcrypt.compareSync(password, user.password);
         if (!isLogin) {
             return res.status(401).json({ message: "Incorrect password" })
         }
@@ -47,7 +48,42 @@ const login = async (req, res) => {
     }
 }
 
+const updateImage = async (req, res) => {
+    try {
+        const { filename } = req.file;
+        const user = await UserModel.findByIdAndUpdate(req.user._id, { image: filename });
+        if (!user) {
+            return res.status(401).json({ message: "Invalid request" })
+        }
+
+        res.status(200).json({ image: user.image })
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+const fetchImage = async (req, res) => {
+    try {
+        const { image } = await UserModel.findById(req.user._id);
+        if (!image) {
+            return res.status(404).json({ message: "Image not found" })
+        }
+        const root = process.cwd();
+        const file = path.join(root, "files", image)
+        res.sendFile(file, (err) => {
+            if (err) {
+                res.status(404).json({ message: "Image not found" })
+            }
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    updateImage,
+    fetchImage
 }

@@ -32,7 +32,7 @@ const upload = multer({
     }
 });
 
-const { signup, login } = require('./controller/user.controller');
+const { signup, login, updateImage, fetchImage } = require('./controller/user.controller');
 const { createFile, fetchFile, deleteFile, downloadFile } = require('./controller/file.controller');
 const { fetchDashboard } = require('./controller/dashboard.controller');
 const { verifyToken } = require('./controller/token.controller');
@@ -90,14 +90,17 @@ app.get("/files", (req, res) => {
 // Api endpoint
 app.post('/api/signup', signup);
 app.post('/api/login', login);
+app.post("/api/profile-picture", AuthMiddleware, upload.single('picture'), updateImage);
 app.post('/api/file', AuthMiddleware, upload.single('file'), createFile);
+app.get("/api/profile-picture", AuthMiddleware, fetchImage)
 app.get('/api/file', AuthMiddleware, fetchFile);
 app.delete('/api/file/:id', AuthMiddleware, deleteFile);
 app.get('/api/file/download/:id', downloadFile);
 app.get('/api/dashboard', AuthMiddleware, fetchDashboard);
 app.post("/api/token/verify", verifyToken);
 app.post("/api/share", AuthMiddleware, shareFile);
-app.get("/api/share", AuthMiddleware, fetchedSharedHistory)
+app.get("/api/share", AuthMiddleware, fetchedSharedHistory);
+
 
 
 

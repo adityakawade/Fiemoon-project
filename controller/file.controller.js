@@ -36,8 +36,9 @@ const createFile = async (req, res) => {
 
 const fetchFile = async (req, res) => {
     try {
+        const {limit} = req.query;
         const { _id } = req.user;
-        const files =  await FileModel.find({ user: _id }).sort({ createdAt: -1 })
+        const files =  await FileModel.find({ user: _id }).sort({ createdAt: -1 }).limit(limit)
 
         res.status(200).json(files);
 

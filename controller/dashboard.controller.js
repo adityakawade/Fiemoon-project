@@ -1,12 +1,16 @@
 const FileModel = require("../model/file.model");
-
+const mongoose = require("mongoose");
 
 const fetchDashboard = async (req, res) => {
     try {
+        const userId = new mongoose.Types.ObjectId(req.user._id);
         const reports = await FileModel.aggregate([
             {
+                $match: { user: userId }
+            },
+            {
                 $group: {
-                    type: "$type",
+                    _id: "$type",
                     total: { $sum: 1 }
                 }
             }

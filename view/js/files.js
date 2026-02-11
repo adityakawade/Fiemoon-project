@@ -3,6 +3,8 @@ axios.defaults.baseURL = SERVER
 window.onload = () => {
     showUserDeatails();
     fetchFile();
+    fetchImage();
+    protectPage();
 }
 
 const toast = new Notyf({
@@ -101,10 +103,22 @@ const uploadFile = async (e) => {
 
 
 const getSize = (size) => {
-    const mb = (size / 1000) / 1000;
-    return mb.toFixed(1)
-}
+    const kb = size / 1000;
+    const mb = kb / 1000;
+    const gb = mb / 1000;
 
+    if (gb >= 1) {
+        return gb.toFixed(2) + ' Gb';
+    }
+    if (mb >= 1) {
+        return mb.toFixed(2) + ' Mb';
+    }
+    if (kb >= 1) {
+        return kb.toFixed(2) + ' Kb';
+    }
+
+    return size + ' B'
+}
 
 
 
@@ -119,7 +133,7 @@ const fetchFile = async () => {
             <tr class="text-gray-500 border-b border-gray-100">
                         <td class="py-4 pl-6 capitalize">${file.filename}</td>
                         <td class ="capitalize">${file.type}</td>
-                        <td> ${getSize(file.size)} Mb</td>
+                        <td> ${getSize(file.size)} </td>
                         <td> ${moment(file.createdAt).format('DD-MMM-YYYY,   hh:mm A')}</td>
                         <td>
                             <div class="space-x-3" >
@@ -242,5 +256,63 @@ const shareFile = async (e, id) => {
     }
     finally {
         swal.close();
+    }
+}
+
+
+
+
+const uploadImage = () => {
+    try {
+        const input = document.createElement("input")
+        const pic = document.getElementById("pic");
+        input.type = "file";
+        input.accept = "image/*"
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append('picture', file);
+            await axios.post("/api/profile-picture", formData, getAuthToken());
+            const url = URL.createObjectURL(file)
+            pic.src = url;
+
+
+        }
+    } catch (error) {
+        toast.error(error.response ? error.response.data.message : error.message)
+    }
+}
+
+const fetchImage = async () => {
+    try {
+        const option = {
+            responseType: 'blob',
+            ...getAuthToken()
+        }
+        const { data } = await axios.get("/api/profile-picture", option);
+        const url = URL.createObjectURL(data);
+        const pic = document.getElementById("pic");
+        pic.src = url
+    } catch (error) {
+        if (!error.response) {
+            return toast.error(error.message);
+        }
+
+        const err = await (error.response.data).text();
+        const { message } = JSON.parse(err);
+        toast.error(message)
+    }
+}
+
+
+
+const protectPage = async () => {
+    const session = await getsession();  // your existing function
+
+    if (!session) {
+        // No valid token → go back to login
+        location.href = "/login";
     }
 }

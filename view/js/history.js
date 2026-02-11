@@ -50,8 +50,9 @@ const fetchedHistory = async () => {
             return
         }
         for (const item of data) {
+            const filename = item.file ? item.file.filename : "File deleted";
             const ui = `  <tr class="text-gray-500 border-b border-gray-100">
-                            <td class="py-4 pl-6 capitalize">${item.file.filename}</td>
+                            <td class="py-4 pl-6 capitalize">${filename}</td>
                             <td>${item.receiverEmail}</td>
                             <td> ${moment(item.createdAt).format('DD MMM YYYY,   hh:mm A')}</td>
             </tr>`
@@ -97,18 +98,19 @@ const fetchImage = async () => {
             responseType: 'blob',
             ...getAuthToken()
         }
-        const { data } = await axios.get("/api/profile-picture", option);
+        const res = await axios.get("/api/profile-picture", option);
+        const data = res.data
+        if (!data || data.size === 0 || res.status === 204) {
+            const pic = document.getElementById("pic");
+            pic.src = "../images/avt.png"
+            return
+        }
         const url = URL.createObjectURL(data);
         const pic = document.getElementById("pic");
         pic.src = url
     } catch (error) {
-        if (!error.response) {
-            return toast.error(error.message);
-        }
-
-        const err = await (error.response.data).text();
-        const { message } = JSON.parse(err);
-        toast.error(message)
+        const pic = document.getElementById("pic");
+        pic.src = "/images/avt.png";
     }
 }
 

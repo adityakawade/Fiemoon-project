@@ -187,6 +187,8 @@ const downloadFile = async (id, filename, button) => {
             ...getAuthToken()
         };
         const { data } = await axios.get(`api/file/download/${id}`, options);
+        console.log(data);
+        
         const ext = data.type.split("/").pop();
         const url = URL.createObjectURL(data);
         const a = document.createElement("a")
@@ -291,18 +293,19 @@ const fetchImage = async () => {
             responseType: 'blob',
             ...getAuthToken()
         }
-        const { data } = await axios.get("/api/profile-picture", option);
+        const res = await axios.get("/api/profile-picture", option);
+        const data = res.data
+        if (!data || data.size === 0 || res.status === 204) {
+            const pic = document.getElementById("pic");
+            pic.src = "../images/avt.png"
+            return
+        }
         const url = URL.createObjectURL(data);
         const pic = document.getElementById("pic");
         pic.src = url
     } catch (error) {
-        if (!error.response) {
-            return toast.error(error.message);
-        }
-
-        const err = await (error.response.data).text();
-        const { message } = JSON.parse(err);
-        toast.error(message)
+        const pic = document.getElementById("pic");
+        pic.src = "/images/avt.png";
     }
 }
 

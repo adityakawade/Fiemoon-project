@@ -65,21 +65,31 @@ const updateImage = async (req, res) => {
 
 const fetchImage = async (req, res) => {
     try {
-        const { image } = await UserModel.findById(req.user._id);
-        if (!image) {
-            return res.status(404).json({ message: "Image not found" })
+        const user = await UserModel.findById(req.user._id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
+
+        const { image } = user;
+
+        if (!image) {
+            return res.status(204).send();   
+        }
+
         const root = process.cwd();
-        const file = path.join(root, "files", image)
+        const file = path.join(root, "files", image);  
+
         res.sendFile(file, (err) => {
             if (err) {
-                res.status(404).json({ message: "Image not found" })
+                res.status(404).json({ message: "Image not found" });
             }
-        })
+        });
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 module.exports = {
     signup,

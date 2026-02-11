@@ -116,10 +116,11 @@ const fetchedRecentShared = async () => {
             return
         }
         for (const item of data) {
+            const filename = item.file ? item.file.filename : "File deleted";
             const ui = `
                             <div class="flex justify-between items-start">
                                 <div class="">
-                                    <h1 class="font-medium text-zinc-500 capitalize">${item.file.filename}</h1>
+                                    <h1 class="font-medium text-zinc-500 capitalize">${filename}</h1>
                                     <small class="text-gray-500 text-sm ">${item.receiverEmail}</small>
                                 </div>
                                 <p class="text-gray-600 text-sm ">${moment(item.createdAt).format('DD MMM YYYY,hh:mm A')}</p>
@@ -175,8 +176,8 @@ const fetchedFilesReport = async () => {
         const { data } = await axios.get("/api/dashboard", getAuthToken());
         const reportCard = document.getElementById("report-card");
         reportCard.innerHTML = ""
-        console.log(data);
-        
+        // console.log(data);
+
         for (const item of data) {
             const { icon, bg } = getIconAndStyle(item._id);
             const ui = `<div
@@ -227,18 +228,19 @@ const fetchImage = async () => {
             responseType: 'blob',
             ...getAuthToken()
         }
-        const { data } = await axios.get("/api/profile-picture", option);
+        const res = await axios.get("/api/profile-picture", option);
+        const data = res.data
+        if (!data || data.size === 0 || res.status === 204) {
+            const pic = document.getElementById("pic");
+            pic.src = "../images/avt.png"
+            return
+        }
         const url = URL.createObjectURL(data);
         const pic = document.getElementById("pic");
         pic.src = url
     } catch (error) {
-        if (!error.response) {
-            return toast.error(error.message);
-        }
-
-        const err = await (error.response.data).text();
-        const { message } = JSON.parse(err);
-        toast.error(message)
+        const pic = document.getElementById("pic");
+        pic.src = "/images/avt.png";
     }
 }
 
